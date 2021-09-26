@@ -1,0 +1,22 @@
+name: Version Increment
+
+on:
+  push:
+    branches:
+      - main
+    tags-ignore:
+      - RELEASE v*
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    #if: "!startsWith(github.event.head_commit.message, '[RELEASE]')"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - run: git config user.name "$GITHUB_ACTOR"
+      - run: npm version patch -m "v%s"
+      - run: git tag "v%s"
+      - run: git push
