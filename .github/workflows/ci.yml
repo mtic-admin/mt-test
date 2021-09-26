@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags-ignore:
-      - "*"
+      - 1.*
 
 jobs:
   version:
