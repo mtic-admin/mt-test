@@ -1,0 +1,21 @@
+{
+  "name": "mti-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "yarn clean && tsc --project tsconfig.json",
+    "clean": "rimraf tsconfig*.tsbuildinfo lib"
+  },
+  "author": "Martin Tichovsky",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "lib"
+  ],
+  "devDependencies": {
+    "rimraf": "3.0.2",
+    "typescript": "4.4.3"
+  }
+}
