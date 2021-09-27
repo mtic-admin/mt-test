@@ -1,9 +1,11 @@
 name: Version Increment
 
 on:
-  pull_request:
+  push:
     branches:
       - main
+    tags-ignore:
+      - v*
 
 jobs:
   version:
@@ -19,4 +21,3 @@ jobs:
       - run: git tag ${VERSION}
       - run: git push origin --follow-tags
       - run: git push origin --tags
-      - run: git push
