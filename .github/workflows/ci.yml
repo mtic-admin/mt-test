@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags-ignore:
-      - 1.*
+      - v1.*
 
 jobs:
   version:
@@ -19,5 +19,6 @@ jobs:
       - run: npm version minor -m "v%s"
       - run: VERSION=$(node -p "require('./package.json').version")
       - run: git tag ${VERSION}
+      - run: git push origin --follow-tags
       - run: git push origin --tags
-      - run: git push
+      - run: git push origin
