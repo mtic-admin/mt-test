@@ -18,8 +18,7 @@ jobs:
       - run: git config user.name "$GITHUB_ACTOR"
       - run: npm version minor -m "v%s"
       - run: VERSION=$(node -p "require('./package.json').version")
+      - run: git commit -a -m "v${VERSION} [skip actions]"
       - run: git tag ${VERSION}
-      #- run: git push origin --follow-tags
       - run: git push origin --tags
-      - run: git push origin ${VERSION} --follow-tags
-      #- run: git push origin ${VERSION}
+      - run: git push origin --follow-tags
