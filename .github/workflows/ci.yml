@@ -1,12 +1,23 @@
 name: Bump version
 
 on:
-  push:
+  [push, pull_request]:
     branches:
       - main
 
 jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: yarn test
+
   bump-version:
+    if: github.ref == 'refs/heads/main'
+    needs: [ci]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
