@@ -54,8 +54,8 @@ jobs:
 
       - name: Push changes
         run: |
-          git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-          git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
 
       - name: Publish package
         run: |
