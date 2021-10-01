@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags-ignore:
-      - v*
 
 jobs:
   version:
@@ -21,28 +19,3 @@ jobs:
       - run: git tag ${VERSION}
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
       - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
-
-  # bump-version:
-  #   name: "Bump Version on master"
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: "Checkout source code"
-  #       uses: "actions/checkout@v2"
-  #       with:
-  #         ref: ${{ github.ref }}
-  #     - name: "cat package.json"
-  #       run: cat ./package.json
-  #     - name: "Automated Version Bump"
-  #       id: version-bump
-  #       uses: "phips28/gh-action-bump-version@master"
-  #       with:
-  #         tag-prefix: "v"
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-  #     - name: "cat package.json"
-  #       run: cat ./package.json
-  #     - name: "Output Step"
-  #       env:
-  #         NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
-  #       run: echo "new tag $NEW_TAG"
