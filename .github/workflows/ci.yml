@@ -26,24 +26,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Install
-        run: |
-          yarn install
+      # - name: Install
+      #   run: |
+      #     yarn install
 
-      - name: "Aaaa"
-        uses: actions/github-script@v2
-        with:
-          script: |
-            require(`${process.env.GITHUB_WORKSPACE}/src/action.js`);
+      # - name: "Aaaa"
+      #   uses: actions/github-script@v2
+      #   with:
+      #     script: |
+      #       require(`${process.env.GITHUB_WORKSPACE}/src/action.js`);
 
-      - name: Set creator
-        run: |
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git config user.name "$GITHUB_ACTOR"
+      # - name: Set creator
+      #   run: |
+      #     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      #     git config user.name "$GITHUB_ACTOR"
 
       - name: Increment version
         env:
-          VERSION_TYPE: ${{ contains(toJSON(github.event.head_commit.message), '\n\nBREAKING CHANGE:') && 'major' || (startsWith(github.context.payload.pull_request.title, 'fix:') || startsWith(github.event.head_commit.message, 'fix:')) && 'patch' || 'minor' }}
+          VERSION_TYPE: ${{ (startsWith(github.event.head_commit.message, 'BREAKING CHANGE:') || contains(toJSON(github.event.head_commit.message), '\n\nBREAKING CHANGE:')) && 'major' || (startsWith(github.event.head_commit.message, 'fix:') || contains(toJSON(github.event.head_commit.message), '\n\nfix:')) && 'patch' || 'minor' }}
         run: |
           npm version $VERSION_TYPE -m "v%s"
           VERSION=$(node -p "require('./package.json').version")
