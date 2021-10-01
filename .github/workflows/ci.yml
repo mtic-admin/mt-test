@@ -28,7 +28,7 @@ jobs:
 
       - name: Version type
         run: |
-          VERSION_TYPE=${{ startsWith(github.event.head_commit.message, "fix:") && "patch" || "minor" }}
+          VERSION_TYPE=${{ startsWith(github.event.head_commit.message, 'fix:') && 'patch' || 'minor' }}
 
       - name: Set creator
         run: |
