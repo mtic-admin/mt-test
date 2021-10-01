@@ -43,7 +43,7 @@ jobs:
 
       - name: Increment version
         env:
-          VERSION_TYPE: ${{ contains(toJSON(github.context.payload.commits), 'BREAKING CHANGE:') && 'major' || startsWith(github.event.head_commit.message, 'fix:') && 'patch' || 'minor' }}
+          VERSION_TYPE: ${{ startsWith(github.context.payload.commits.*.message, 'BREAKING CHANGE:') && 'major' || startsWith(github.event.head_commit.message, 'fix:') && 'patch' || 'minor' }}
         run: |
           npm version $VERSION_TYPE -m "v%s"
           VERSION=$(node -p "require('./package.json').version")
