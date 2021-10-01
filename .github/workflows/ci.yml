@@ -26,6 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Version type
+        run: |
+          VERSION_TYPE=${{ startsWith(github.event.head_commit.message, 'fix:') && 'patch' || 'minor' }}
+
       - name: Set creator
         run: |
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
@@ -33,7 +37,7 @@ jobs:
 
       - name: Increment version
         run: |
-          npm version minor -m "v%s"
+          npm version ${VERSION_TYPE} -m "v%s"
           VERSION=$(node -p "require('./package.json').version")
 
       - name: Create tag
