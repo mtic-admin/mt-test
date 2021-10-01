@@ -26,6 +26,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install
+        run: |
+          yarn install
+
+      - name: "Aaaa"
+        uses: actions/github-script@v2
+        with:
+          script: |
+            require(`${process.env.GITHUB_WORKSPACE}/src/action.js`);
+
       - name: Set creator
         run: |
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
