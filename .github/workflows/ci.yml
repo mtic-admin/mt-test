@@ -22,8 +22,8 @@ jobs:
       - run: git checkout main
       - run: npm version --git-tag-version=false ${VERSION}
       - run: git tag ${VERSION}
-      - run: git push "https://MartinTichovsky:${secrets.ACCESS_TOKEN}@github.com/mt-test.git" --follow-tags
-      - run: git push "https://MartinTichovsky:${secrets.ACCESS_TOKEN}@github.com/mt-test.git" --tags
+      - run: git push "https://MartinTichovsky:${{ secrets.ACCESS_TOKEN }}@github.com/mt-test.git" --follow-tags
+      - run: git push "https://MartinTichovsky:${{ secrets.ACCESS_TOKEN }}@github.com/mt-test.git" --tags
 
   # bump-version:
   #   name: "Bump Version on master"
