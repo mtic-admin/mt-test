@@ -1,4 +1,4 @@
-name: Version Increment
+name: Bump version
 
 on:
   push:
@@ -6,14 +6,32 @@ on:
       - main
 
 jobs:
-  version:
+  bump-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - run: git config user.name "$GITHUB_ACTOR"
-      - run: npm version minor -m "v%s"
-      - run: VERSION=$(node -p "require('./package.json').version")
-      - run: git tag ${VERSION}
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-      - run: git push "https://$GITHUB_ACTOR:${{ secrets.ACCESS_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set creator
+        run: |
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config user.name "$GITHUB_ACTOR"
+
+      - name: Increment version
+        run: |
+          npm version minor -m "v%s"
+          VERSION=$(node -p "require('./package.json').version")
+
+      - name: Create tag
+        run: |
+          git tag ${VERSION}
+
+      - name: Push changes
+        run: |
+          git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+
+      - name: Publish package
+        run: |
+          npm config set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" 
+          npm publish
