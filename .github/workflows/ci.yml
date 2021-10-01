@@ -20,7 +20,7 @@ jobs:
       - run: npm version minor -m "v%s"
       - run: VERSION=$(node -p "require('./package.json').version")
       - run: git fetch
-      - run: checkout main
+      - run: git checkout main
       - run: npm version --git-tag-version=false ${VERSION}
       - run: git commit -a -m "v${VERsiON}"
       - run: git tag ${VERSION}
