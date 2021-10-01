@@ -14,7 +14,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.ref }}
-          token: ${{ secrets.ACCESS_TOKEN }}
       - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - run: git config user.name "$GITHUB_ACTOR"
       - run: npm version minor -m "v%s"
@@ -23,8 +22,8 @@ jobs:
       - run: git checkout main
       - run: npm version --git-tag-version=false ${VERSION}
       - run: git tag ${VERSION}
-      - run: git push "https://${process.env.GITHUB_ACTOR}:${secrets.ACCESS_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git" --follow-tags
-      - run: git push "https://${process.env.GITHUB_ACTOR}:${secrets.ACCESS_TOKEN}@github.com/${process.env.GITHUB_REPOSITORY}.git" --tags
+      - run: git push "https://MartinTichovsky:${secrets.ACCESS_TOKEN}@github.com/mt-test.git" --follow-tags
+      - run: git push "https://MartinTichovsky:${secrets.ACCESS_TOKEN}@github.com/mt-test.git" --tags
 
   # bump-version:
   #   name: "Bump Version on master"
