@@ -8,41 +8,41 @@ on:
       - v*
 
 jobs:
-  # version:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #       with:
-  #         token: ${{ secrets.ACCESS_TOKEN }}
-  #     - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-  #     - run: git config user.name "$GITHUB_ACTOR"
-  #     - run: npm version minor -m "v%s [skip actions]"
-  #     - run: VERSION=$(node -p "require('./package.json').version")
-  #     - run: git tag ${VERSION}
-  #     - run: git push origin --follow-tags
-  #     - run: git push origin --tags
-
-  bump-version:
-    name: "Bump Version on master"
+  version:
     runs-on: ubuntu-latest
-
     steps:
-      - name: "Checkout source code"
-        uses: "actions/checkout@v2"
+      - uses: actions/checkout@v2
         with:
-          ref: ${{ github.ref }}
-      - name: "cat package.json"
-        run: cat ./package.json
-      - name: "Automated Version Bump"
-        id: version-bump
-        uses: "phips28/gh-action-bump-version@master"
-        with:
-          tag-prefix: "v"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      - name: "cat package.json"
-        run: cat ./package.json
-      - name: "Output Step"
-        env:
-          NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
-        run: echo "new tag $NEW_TAG"
+          token: ${{ secrets.ACCESS_TOKEN }}
+      - run: git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - run: git config user.name "$GITHUB_ACTOR"
+      - run: npm version minor -m "v%s"
+      - run: VERSION=$(node -p "require('./package.json').version")
+      - run: git tag ${VERSION}
+      - run: git push origin --follow-tags
+      - run: git push origin --tags
+
+  # bump-version:
+  #   name: "Bump Version on master"
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: "Checkout source code"
+  #       uses: "actions/checkout@v2"
+  #       with:
+  #         ref: ${{ github.ref }}
+  #     - name: "cat package.json"
+  #       run: cat ./package.json
+  #     - name: "Automated Version Bump"
+  #       id: version-bump
+  #       uses: "phips28/gh-action-bump-version@master"
+  #       with:
+  #         tag-prefix: "v"
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+  #     - name: "cat package.json"
+  #       run: cat ./package.json
+  #     - name: "Output Step"
+  #       env:
+  #         NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+  #       run: echo "new tag $NEW_TAG"
