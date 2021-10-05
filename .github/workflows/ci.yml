@@ -25,8 +25,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.TOKEN }}
 
       # - name: Install
       #   run: |
@@ -50,17 +48,14 @@ jobs:
           npm version $VERSION_TYPE -m "v%s"
           VERSION=$(node -p "require('./package.json').version")
 
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Create tag
         run: |
           git tag ${VERSION}
 
       - name: Push changes
         run: |
-          git push "https://$GITHUB_ACTOR:${{ secrets.TTT }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-          git push "https://$GITHUB_ACTOR:${{ secrets.TTT }}@github.com/$GITHUB_REPOSITORY.git" --tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN  }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN  }}@github.com/$GITHUB_REPOSITORY.git" --tags
 
       # - name: Publish package
       #   run: |
