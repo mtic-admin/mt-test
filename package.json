@@ -1,6 +1,6 @@
 {
   "name": "mti-test",
-  "version": "5.7.0",
+  "version": "5.29.0",
   "description": "",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
