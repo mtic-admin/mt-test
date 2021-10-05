@@ -67,4 +67,4 @@ jobs:
       #     npm publish
 
       - run: |
-          yarn lerna version --conventional-commits --yes
+          yarn lerna version
