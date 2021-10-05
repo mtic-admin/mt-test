@@ -57,12 +57,9 @@ jobs:
           git tag ${VERSION}
 
       - name: Push changes
-        # run: |
-        #   git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-        #   git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
         run: |
-          git checkout main
-          git push --follow-tags --no-verify --atomic
+          git push --follow-tags
+          git push --tags
 
       # - name: Publish package
       #   run: |
