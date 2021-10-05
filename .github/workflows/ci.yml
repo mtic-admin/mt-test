@@ -66,5 +66,5 @@ jobs:
       #     npm config set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
       #     npm publish
 
-      run: |
-         yarn lerna version --conventional-commits --yes 
+      - run: |
+          yarn lerna version --conventional-commits --yes
