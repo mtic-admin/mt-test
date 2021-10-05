@@ -38,33 +38,28 @@ jobs:
       #     script: |
       #       require(`${process.env.GITHUB_WORKSPACE}/src/action.js`);
 
-      # - name: Set creator
-      #   run: |
-      #     git config user.email "automated-version@users.noreply.github.com"
-      #     git config user.name "Automated Version"
+      - name: Set creator
+        run: |
+          git config user.email "automated-version@users.noreply.github.com"
+          git config user.name "Automated Version"
 
-      # - name: Increment version
-      #   env:
-      #     VERSION_TYPE: ${{ (startsWith(github.event.head_commit.message, 'BREAKING CHANGE:') || contains(toJSON(github.event.head_commit.message), '\n\nBREAKING CHANGE:')) && 'major' || (startsWith(github.event.head_commit.message, 'fix:') || contains(toJSON(github.event.head_commit.message), '\n\nfix:')) && 'patch' || 'minor' }}
-      #   run: |
-      #     npm version $VERSION_TYPE -m "v%s"
-      #     VERSION=$(node -p "require('./package.json').version")
+      - name: Increment version
+        env:
+          VERSION_TYPE: ${{ (startsWith(github.event.head_commit.message, 'BREAKING CHANGE:') || contains(toJSON(github.event.head_commit.message), '\n\nBREAKING CHANGE:')) && 'major' || (startsWith(github.event.head_commit.message, 'fix:') || contains(toJSON(github.event.head_commit.message), '\n\nfix:')) && 'patch' || 'minor' }}
+        run: |
+          npm version $VERSION_TYPE -m "v%s"
+          VERSION=$(node -p "require('./package.json').version")
 
-      # - name: Create tag
-      #   run: |
-      #     git tag ${VERSION}
+      - name: Create tag
+        run: |
+          git tag ${VERSION}
 
-      # - name: Push changes
-      #   run: |
-      #     git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
-      #     git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
+      - name: Push changes
+        run: |
+          git push "https://$GITHUB_ACTOR:${{ secrets.TTT }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
+          git push "https://$GITHUB_ACTOR:${{ secrets.TTT }}@github.com/$GITHUB_REPOSITORY.git" --tags
 
       # - name: Publish package
       #   run: |
       #     npm config set "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}"
       #     npm publish
-
-      - name: "Automated Version Bump"
-        uses: "phips28/gh-action-bump-version@master"
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
