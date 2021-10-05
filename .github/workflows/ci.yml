@@ -2,10 +2,12 @@ name: Bump version
 
 on:
   push:
-    paths-ignore:
-      - "package.json"
     branches:
       - main
+    paths-ignore:
+      - package.json
+    tags-ignore:
+      - v*
   pull_request:
     branches:
       - main
