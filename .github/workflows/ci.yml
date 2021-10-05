@@ -59,7 +59,7 @@ jobs:
         #   git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --follow-tags
         #   git push "https://$GITHUB_ACTOR:${{ secrets.TOKEN }}@github.com/$GITHUB_REPOSITORY.git" --tags
         run: |
-          git push --follow-tags --no-verify --atomic remote main
+          git push --follow-tags --no-verify --atomic origin main
 
       # - name: Publish package
       #   run: |
